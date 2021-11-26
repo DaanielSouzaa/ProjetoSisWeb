@@ -28,7 +28,7 @@ def verificaUser():
 @app.route("/painel")
 def painel():
     if (session['logado'] == False):
-        return redirect(url_for("hello_world"))
+        return redirect(url_for("hello_world")) #rota index
     else:
         list = []
         with open('data.json', 'r') as f:
@@ -60,12 +60,12 @@ def createUser():
             cursor.close()
             arquivoJson(user, senha, perfil)
             return json.dumps([1, "Usuário criado com sucesso!"])
-    return json.dumps([2, "Erro ao conectar ao banco!"])
+    return json.dumps([2, "Erro ao conectar ao banco!"], ensure_ascii=False)
 
 
 def arquivoJson(user, senha, perfil):
     with open('data.json', 'a') as f:
-        json.dumps({"user": user, "senha": senha, "perfil": perfil}, f, ensure_ascii=False)
+        json.dump({"user": user, "senha": senha, "perfil": perfil}, f, ensure_ascii=False)
         f.write("\n")
 
 
